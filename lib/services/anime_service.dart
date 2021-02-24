@@ -6,19 +6,22 @@ class AnimeService {
 
   AnimeService(this.dio);
 
-  Future<List<Anime>> searchAnime({String anime}) async{
-    String url = '';
-    String path = '';
-    if(anime == null) {
-      url = '/top/anime';
-      path = 'top';
-    } else {
-      url = '/search/anime?q=$anime';
-      path = 'results';
+  Future<List<Anime>> searchAnime(String anime) async{
+    Response response = await dio.get('/search/anime?q=$anime');
+    if(response.statusCode == 200) {
+      List<Anime> animeList = [];
+      response.data['results'].forEach((anime) => animeList.add(Anime.fromJson(anime)));
+      return animeList;
     }
-    Response response = await dio.get(url);
-    List<Anime> animeList = [];
-    response.data[path].forEach((anime) => animeList.add(Anime.fromJson(anime)));
-    return animeList;
   }
+
+  Future<List<Anime>> fetchTopAnimes() async {
+    Response response = await dio.get('/top/anime');
+    if(response.statusCode == 200) {
+      List<Anime> animeList = [];
+      response.data['top'].forEach((anime) => animeList.add(Anime.fromJson(anime)));
+      return animeList;
+    }
+  }
+
 }

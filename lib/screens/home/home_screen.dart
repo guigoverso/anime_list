@@ -1,21 +1,31 @@
+import 'package:anime_list/models/anime_model.dart';
 import 'package:anime_list/services/anime_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeScreen extends StatelessWidget {
-
-  final _store = Modular.get<AnimeService>();
-
   @override
   Widget build(BuildContext context) {
-    _store.searchAnime();
-    return Scaffold(
+    return DefaultTabController(length: 3, child: Scaffold(
       appBar: AppBar(
         title: Text('Anime List'),
+        centerTitle: true,
+        backgroundColor: Colors.red,
+        bottom: TabBar(
+          tabs: [
+            Tab(icon: Icon(Icons.directions_car)),
+            Tab(icon: Icon(Icons.directions_transit)),
+            Tab(icon: Icon(Icons.directions_bike)),
+          ],
+        ),
       ),
-      body: Center(
-        child: Text('Anime List'),
+      body: TabBarView(
+        children: [
+          Text('Top'),
+          Text('Pesquisar'),
+          Text('Favoritos')
+        ],
       ),
-    );
+    ));
   }
 }
