@@ -4,13 +4,15 @@ class Anime {
   String title;
   String synopsis;
   int episodes;
+  double score;
 
   Anime(
       {this.id,
         this.imageUrl,
         this.title,
         this.synopsis,
-        this.episodes,});
+        this.episodes,
+        this.score});
 
   Anime.fromJson(Map<String, dynamic> json) {
     id = json['mal_id'];
@@ -18,6 +20,7 @@ class Anime {
     title = json['title'];
     synopsis = json['synopsis'];
     episodes = json['episodes'];
+    score = json['score'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +30,7 @@ class Anime {
     data['title'] = this.title;
     data['synopsis'] = this.synopsis;
     data['episodes'] = this.episodes;
+    data['score'] = this.score;
     return data;
   }
 }

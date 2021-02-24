@@ -1,4 +1,5 @@
 import 'package:anime_list/models/anime_model.dart';
+import 'package:anime_list/screens/top/top_screen.dart';
 import 'package:anime_list/services/anime_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: TabBarView(
         children: [
-          Text('Top'),
+          TopScreen(),
           Text('Pesquisar'),
           Text('Favoritos')
         ],
