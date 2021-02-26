@@ -1,5 +1,6 @@
 import 'package:anime_list/app/app_widget.dart';
 import 'package:anime_list/screens/home/home_screen.dart';
+import 'package:anime_list/screens/home/home_store.dart';
 import 'package:anime_list/screens/top/top_store.dart';
 import 'package:anime_list/services/anime_service.dart';
 import 'package:anime_list/shared/constants.dart';
@@ -13,7 +14,8 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
     Bind((i) => Dio(BaseOptions(baseUrl: BASE_URL))),
     Bind((i) => AnimeService(i.get())),
-    Bind((i) => TopStore(i.get()))
+    Bind((i) => TopStore(i.get())),
+    Bind((i) => HomeStore())
   ];
 
   @override

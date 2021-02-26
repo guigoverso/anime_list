@@ -1,4 +1,5 @@
 import 'package:anime_list/models/anime_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TopCard extends StatelessWidget {
@@ -46,7 +47,7 @@ class TopCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
