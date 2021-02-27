@@ -14,10 +14,9 @@ class TopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => _store.isDataDownloaded ?  ListView.builder(
-        padding: EdgeInsets.all(16.0),
         itemCount: _store.topAnimes.length,
         itemBuilder: (context, index) {
-          return TopCard(anime: _store.topAnimes[index], index: index);
+          return TopCard(anime: _store.topAnimes[index], cardIndex: index);
         },
       ) : Center(child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.red)

@@ -8,6 +8,14 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/',
       navigatorKey: Modular.navigatorKey,
       onGenerateRoute: Modular.generateRoute,
+      theme: ThemeData(
+        primaryColor: Colors.red,
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.red)
+          )
+        )
+      ),
     );
   }
 }

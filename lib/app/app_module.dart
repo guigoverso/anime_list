@@ -1,9 +1,12 @@
 import 'package:anime_list/app/app_widget.dart';
 import 'package:anime_list/screens/home/home_screen.dart';
 import 'package:anime_list/screens/home/home_store.dart';
+import 'package:anime_list/screens/top/top_screen.dart';
 import 'package:anime_list/screens/top/top_store.dart';
+import 'package:anime_list/screens/search/search_store.dart';
 import 'package:anime_list/services/anime_service.dart';
 import 'package:anime_list/shared/constants.dart';
+import 'package:anime_list/shared/menuScreens.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,8 +17,10 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
     Bind((i) => Dio(BaseOptions(baseUrl: BASE_URL))),
     Bind((i) => AnimeService(i.get())),
+    Bind((i) => MenuScreens()),
+    Bind((i) => HomeStore(i.get())),
     Bind((i) => TopStore(i.get())),
-    Bind((i) => HomeStore())
+    Bind((i) => SearchStore(i.get()))
   ];
 
   @override

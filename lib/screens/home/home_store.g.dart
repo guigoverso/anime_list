@@ -9,49 +9,46 @@ part of 'home_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeStore on _HomeStore, Store {
-  Computed<TabController> _$tabControllerComputed;
+  Computed<List<Map<dynamic, dynamic>>> _$screensComputed;
 
   @override
-  TabController get tabController => (_$tabControllerComputed ??=
-          Computed<TabController>(() => super.tabController,
-              name: '_HomeStore.tabController'))
+  List<Map<dynamic, dynamic>> get screens => (_$screensComputed ??=
+          Computed<List<Map<dynamic, dynamic>>>(() => super.screens,
+              name: '_HomeStore.screens'))
       .value;
 
-  final _$_tabControllerAtom = Atom(name: '_HomeStore._tabController');
+  final _$_currentScreenAtom = Atom(name: '_HomeStore._currentScreen');
 
   @override
-  TabController get _tabController {
-    _$_tabControllerAtom.reportRead();
-    return super._tabController;
+  Widget get _currentScreen {
+    _$_currentScreenAtom.reportRead();
+    return super._currentScreen;
   }
 
   @override
-  set _tabController(TabController value) {
-    _$_tabControllerAtom.reportWrite(value, super._tabController, () {
-      super._tabController = value;
+  set _currentScreen(Widget value) {
+    _$_currentScreenAtom.reportWrite(value, super._currentScreen, () {
+      super._currentScreen = value;
     });
   }
 
-  final _$indexAtom = Atom(name: '_HomeStore.index');
+  final _$_HomeStoreActionController = ActionController(name: '_HomeStore');
 
   @override
-  int get index {
-    _$indexAtom.reportRead();
-    return super.index;
-  }
-
-  @override
-  set index(int value) {
-    _$indexAtom.reportWrite(value, super.index, () {
-      super.index = value;
-    });
+  dynamic changeCurrentScreen(int index) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.changeCurrentScreen');
+    try {
+      return super.changeCurrentScreen(index);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
-index: ${index},
-tabController: ${tabController}
+screens: ${screens}
     ''';
   }
 }

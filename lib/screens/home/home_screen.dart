@@ -1,51 +1,41 @@
 import 'package:anime_list/screens/home/home_store.dart';
-import 'package:anime_list/screens/top/top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-
+class HomeScreen extends StatelessWidget {
   final _store = Modular.get<HomeStore>();
-
-  void initState() {
-    super.initState();
-    TabController _tabController = TabController(length: 3, vsync: this);
-    _store.setTabController(_tabController);
-    _store.index = _store.tabController.index;
-    _store.tabController.animation.addListener(() {print(_store.index = _store.tabController.index);});
-  }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Scaffold(
-        appBar: AppBar(
-          title: Text('${_store.index}'),
-          centerTitle: true,
-          backgroundColor: Colors.red,
-          bottom: TabBar(
-            controller: _store.tabController,
-            tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          controller: _store.tabController,
-          children: [
-            TopScreen(),
-            Text('Pesquisar'),
-            Text('Favoritos')
-          ],
-        ),
+      builder: (_) => GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text('Anime List - ${_store.titleCurrentScreen}'),
+              centerTitle: true,
+              backgroundColor: Colors.red,
+            ),
+            body: Padding(
+              padding: EdgeInsets.all(5.0),
+              child: _store.currentScreen,
+            ),
+            bottomNavigationBar: AnimatedBottomNavigationBar(
+              icons: _store.screensIcons,
+              iconSize: 28,
+              activeIndex: _store.currentScreenIndex,
+              onTap: _store.changeCurrentScreen,
+              gapLocation: GapLocation.none,
+              splashColor: Colors.white,
+              activeColor: Colors.amber,
+              inactiveColor: Colors.white,
+              leftCornerRadius: 18,
+              rightCornerRadius: 18,
+              splashSpeedInMilliseconds: 400,
+              backgroundColor: Colors.red,
+            )),
       ),
     );
   }
