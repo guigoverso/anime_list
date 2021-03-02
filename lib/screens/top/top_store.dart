@@ -1,7 +1,8 @@
 import 'package:anime_list/models/anime_model.dart';
 import 'package:anime_list/services/anime_service.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../shared/constants.dart';
 
 part 'top_store.g.dart';
 
@@ -12,7 +13,7 @@ abstract class _TopStore with Store {
   List<Anime> _topAnimes = [];
 
   _TopStore(this._store) {
-    _isDataDownloaded = false;
+    _dataStatus = Status.none;
     _fetchTopAnimes();
   }
 
@@ -20,14 +21,17 @@ abstract class _TopStore with Store {
   List<Anime> get topAnimes => _topAnimes;
 
   @observable
-  bool _isDataDownloaded;
+  Status _dataStatus;
 
   @computed
-  bool get isDataDownloaded => _isDataDownloaded;
-  void setDataDownloaded() => _isDataDownloaded = true;
+  Status get dataStatus => _dataStatus;
 
   _fetchTopAnimes() async {
-    _topAnimes = await _store.fetchTopAnimes();
-    setDataDownloaded();
+    try {
+      _topAnimes = await _store.fetchTopAnimes();
+      _dataStatus = Status.success;
+    } catch(e) {
+      _dataStatus = Status.error;
+    }
   }
 }

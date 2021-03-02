@@ -16,26 +16,26 @@ mixin _$TopStore on _TopStore, Store {
       (_$topAnimesComputed ??= Computed<List<Anime>>(() => super.topAnimes,
               name: '_TopStore.topAnimes'))
           .value;
-  Computed<bool> _$isDataDownloadedComputed;
+  Computed<Status> _$dataStatusComputed;
 
   @override
-  bool get isDataDownloaded => (_$isDataDownloadedComputed ??= Computed<bool>(
-          () => super.isDataDownloaded,
-          name: '_TopStore.isDataDownloaded'))
-      .value;
+  Status get dataStatus =>
+      (_$dataStatusComputed ??= Computed<Status>(() => super.dataStatus,
+              name: '_TopStore.dataStatus'))
+          .value;
 
-  final _$_isDataDownloadedAtom = Atom(name: '_TopStore._isDataDownloaded');
+  final _$_dataStatusAtom = Atom(name: '_TopStore._dataStatus');
 
   @override
-  bool get _isDataDownloaded {
-    _$_isDataDownloadedAtom.reportRead();
-    return super._isDataDownloaded;
+  Status get _dataStatus {
+    _$_dataStatusAtom.reportRead();
+    return super._dataStatus;
   }
 
   @override
-  set _isDataDownloaded(bool value) {
-    _$_isDataDownloadedAtom.reportWrite(value, super._isDataDownloaded, () {
-      super._isDataDownloaded = value;
+  set _dataStatus(Status value) {
+    _$_dataStatusAtom.reportWrite(value, super._dataStatus, () {
+      super._dataStatus = value;
     });
   }
 
@@ -43,7 +43,7 @@ mixin _$TopStore on _TopStore, Store {
   String toString() {
     return '''
 topAnimes: ${topAnimes},
-isDataDownloaded: ${isDataDownloaded}
+dataStatus: ${dataStatus}
     ''';
   }
 }
