@@ -1,3 +1,5 @@
+import 'package:anime_list/database/local_storage.dart';
+import 'package:anime_list/models/favorite_model.dart';
 import 'package:anime_list/screens/home/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,6 +19,10 @@ class HomeScreen extends StatelessWidget {
               title: Text('Anime List - ${_store.titleCurrentScreen}'),
               centerTitle: true,
               backgroundColor: Colors.red,
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => {LocalStorage.add(Favorite(title: 'Anime de Teste')), LocalStorage.imprimir()},
             ),
             body: Padding(
               padding: EdgeInsets.all(5.0),
