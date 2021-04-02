@@ -1,5 +1,3 @@
-import 'package:anime_list/database/local_storage.dart';
-import 'package:anime_list/models/favorite_model.dart';
 import 'package:anime_list/screens/home/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,10 +17,15 @@ class HomeScreen extends StatelessWidget {
               title: Text('Anime List - ${_store.titleCurrentScreen}'),
               centerTitle: true,
               backgroundColor: Colors.red,
-            ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => {LocalStorage.add(Favorite(title: 'Anime de Teste')), LocalStorage.imprimir()},
+              actions: [
+                Visibility(
+                  visible: _store.currentScreenIndex == 2,
+                  child: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _clearAllFavorites(context),
+                  ),
+                ),
+              ],
             ),
             body: Padding(
               padding: EdgeInsets.all(5.0),
@@ -44,5 +47,35 @@ class HomeScreen extends StatelessWidget {
             )),
       ),
     );
+  }
+
+  Future<void> _clearAllFavorites(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => AlertDialog(
+              title: Text('Remove favorites'),
+              content: Text('Are you sure to remove all favorites?'),
+              actions: [
+                TextButton(
+                  child: Text(
+                    'Back',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () => Modular.to.pop(),
+                ),
+                TextButton(
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w400),
+                  ),
+                  onPressed: () {
+                    _store.removeAllFavorites();
+                    Modular.to.pop();
+                  },
+                ),
+              ],
+            ));
   }
 }

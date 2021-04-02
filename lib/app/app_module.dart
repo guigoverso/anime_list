@@ -1,6 +1,7 @@
 import 'package:anime_list/app/app_widget.dart';
 import 'package:anime_list/screens/details/details_screen.dart';
 import 'package:anime_list/screens/details/details_store.dart';
+import 'package:anime_list/screens/favorites/favorites_store.dart';
 import 'package:anime_list/screens/home/home_screen.dart';
 import 'package:anime_list/screens/home/home_store.dart';
 import 'package:anime_list/screens/top/top_screen.dart';
@@ -20,9 +21,10 @@ class AppModule extends MainModule {
         Bind((i) => Dio(BaseOptions(baseUrl: BASE_URL))),
         Bind((i) => AnimeService(i.get())),
         Bind((i) => MenuScreens()),
-        Bind((i) => HomeStore(i.get())),
+        Bind((i) => HomeStore(i.get(), i.get())),
         Bind((i) => TopStore(i.get())),
         Bind((i) => SearchStore(i.get())),
+        Bind((i) => FavoritesStore()),
         Bind(
             (i) => DetailsStore(
                   i.args.data['id'],

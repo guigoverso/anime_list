@@ -17,12 +17,28 @@ class LocalStorage {
     _favorites = await Hive.openBox('favorites');
   }
 
+  static List<dynamic> fetchFavorites() {
+    return _favorites.values.toList();
+  }
+
   static void add(Favorite newFavorite) {
     _favorites.add(newFavorite);
+  }
+
+  static void remove(int id) {
+    final removable =
+        _favorites.values.firstWhere((favorite) => favorite.id == id);
+    _favorites.delete(removable.key);
+  }
+
+  static void clear() {
+    _favorites.clear();
   }
 
   static void imprimir() {
     print('Tamanho da caixa: ${_favorites.length}');
     print(_favorites.values);
   }
+
+  static int get qnt => _favorites.length;
 }

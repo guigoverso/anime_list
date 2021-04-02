@@ -1,3 +1,4 @@
+import 'package:anime_list/screens/favorites/favorites_store.dart';
 import 'package:anime_list/shared/menuScreens.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -8,8 +9,9 @@ class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
   final MenuScreens _menuScreens;
+  final FavoritesStore _favoritesStore;
 
-  _HomeStore(this._menuScreens) {
+  _HomeStore(this._menuScreens, this._favoritesStore) {
     _currentScreen = _menuScreens.firstScreen;
     _currentScreenIndex = 0;
   }
@@ -31,6 +33,8 @@ abstract class _HomeStore with Store {
     _currentScreen = _menuScreens.screens[index]["screen"];
     _currentScreenIndex = index;
   }
+
+  Function get removeAllFavorites => _favoritesStore.removeAllfavorites;
 
   List<IconData> _screensIcons() {
     List<IconData> list = [];
