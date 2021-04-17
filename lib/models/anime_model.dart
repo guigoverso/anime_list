@@ -1,3 +1,5 @@
+import 'package:anime_list/database/local_storage.dart';
+
 class Anime {
   int id;
   String imageUrl;
@@ -5,6 +7,7 @@ class Anime {
   String synopsis;
   int episodes;
   double score;
+  bool isFavorite;
 
   Anime(
       {this.id,
@@ -12,7 +15,12 @@ class Anime {
         this.title,
         this.synopsis,
         this.episodes,
-        this.score});
+        this.score,});
+
+  bool favoriteChecked() {
+    return LocalStorage.fetchFavorites().any((element) => element.id == this.id);
+  }
+
 
   Anime.fromJson(Map<String, dynamic> json) {
     id = json['mal_id'];
@@ -21,6 +29,7 @@ class Anime {
     synopsis = json['synopsis'];
     episodes = json['episodes'];
     score = json['score'].toDouble();
+    isFavorite = favoriteChecked();
   }
 
   Map<String, dynamic> toJson() {

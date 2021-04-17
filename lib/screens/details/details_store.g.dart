@@ -39,11 +39,27 @@ mixin _$DetailsStore on _DetailsStore, Store {
     });
   }
 
+  final _$isFavoriteAtom = Atom(name: '_DetailsStore.isFavorite');
+
+  @override
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
+  }
+
+  @override
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 dataStatus: ${dataStatus},
-viewFullSynopsis: ${viewFullSynopsis}
+viewFullSynopsis: ${viewFullSynopsis},
+isFavorite: ${isFavorite}
     ''';
   }
 }

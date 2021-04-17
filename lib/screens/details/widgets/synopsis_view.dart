@@ -33,7 +33,7 @@ class SynopsisView extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Visibility(
-              visible: firstHalf.isNotEmpty,
+              visible: firstHalf != null,
               child: SizedBox(
                 height: 28.0,
                 width: 28.0,
@@ -54,6 +54,8 @@ class SynopsisView extends StatelessWidget {
   void synopsisView() {
     if (synopsis.length > 200) {
       firstHalf = '${synopsis.substring(0, 200)}...';
-    } 
+    } else {
+      _store.viewFullSynopsis = true;
+    }
   }
 }

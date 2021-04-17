@@ -16,9 +16,11 @@ class DetailsScreen extends StatelessWidget {
     appBar: AppBar(
       title: Text(_store.title),
       actions: [
-        IconButton(
-          icon: Icon(Icons.favorite_outline),
-          onPressed: () {},
+        Observer(
+          builder: (_) => IconButton(
+            icon: _store.favoriteIcon,
+            onPressed: _store.favoriteAction,
+          ),
         ),
       ],
     ),
