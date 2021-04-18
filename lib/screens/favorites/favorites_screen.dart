@@ -1,40 +1,26 @@
 import 'package:anime_list/database/local_storage.dart';
-import 'package:anime_list/models/favorite_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'favorites_store.dart';
+import 'widgets/favorite_card.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final _store = Modular.get<FavoritesStore>();
 
-  FavoritesScreen() {
-    print(_store.favorites);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          ElevatedButton(
-            child: Text('Adicionar anime'),
-            onPressed: () => _store.addFavorite(
-              Favorite(
-                title: 'Anime de teste ${LocalStorage.qnt}',
-                id: LocalStorage.qnt
-              ),
-            ),
-          ),
-          ElevatedButton(
-              child: Text('Limpar LocalStorage'),
-              onPressed: LocalStorage.clear,
-          ),
-          ElevatedButton(
-            child: Text('Imprimir no console'),
-            onPressed: () => LocalStorage.imprimir(),
-          )
-        ],
+    return Observer(
+      builder: (_) => ListView.builder(
+        itemCount: _store.favorites.length,
+        itemBuilder: (_, index) {
+          final anime = _store.favorites[index];
+          return FavoriteCard(
+            anime: anime,
+            store: _store,
+          );
+        },
       ),
     );
   }

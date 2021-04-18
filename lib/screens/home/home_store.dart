@@ -1,3 +1,4 @@
+import 'package:anime_list/screens/favorites/favorites_screen.dart';
 import 'package:anime_list/screens/favorites/favorites_store.dart';
 import 'package:anime_list/shared/menuScreens.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,9 @@ abstract class _HomeStore with Store {
   @action
   changeCurrentScreen(int index) {
     _currentScreen = _menuScreens.screens[index]["screen"];
+    if(_currentScreen is FavoritesScreen) {
+      _favoritesStore.fetchFavorites();
+    }
     _currentScreenIndex = index;
   }
 

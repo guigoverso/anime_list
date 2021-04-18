@@ -1,6 +1,6 @@
 import 'package:anime_list/database/local_storage.dart';
+import 'package:anime_list/models/anime_model.dart';
 import 'package:mobx/mobx.dart';
-import '../../models/favorite_model.dart';
 
 part 'favorites_store.g.dart';
 
@@ -8,25 +8,24 @@ class FavoritesStore = _FavoritesStore with _$FavoritesStore;
 
 abstract class _FavoritesStore with Store {
   _FavoritesStore() {
-    _fetchFavorites();
+    fetchFavorites();
   }
 
+  @observable
   ObservableList<dynamic> favorites;
 
-  void _fetchFavorites() {
+  void fetchFavorites() {
     favorites = ObservableList.of(LocalStorage.fetchFavorites());
+    favorites.sort((a, b) => a.title.compareTo(b.title));
   }
 
-  void addFavorite(Favorite newFavorite) {
-    _fetchFavorites();
+  void removeFavorite(Anime anime) async {
+    await LocalStorage.favoriteAction(anime, anime.isFavorite);
+    favorites.remove(anime);
   }
 
-  void removeFavorite(int id) {
-    _fetchFavorites();
-  }
-
-  void removeAllfavorites() {
-    LocalStorage.clear();
-    _fetchFavorites();
+  void removeAllfavorites() async {
+    await LocalStorage.clear();
+    fetchFavorites();
   }
 }

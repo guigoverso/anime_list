@@ -1,5 +1,4 @@
 import 'package:anime_list/database/local_storage.dart';
-import 'package:anime_list/models/favorite_model.dart';
 import 'package:anime_list/services/anime_service.dart';
 import 'package:anime_list/shared/constants.dart';
 import 'package:flutter/material.dart';

@@ -7,6 +7,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       navigatorKey: Modular.navigatorKey,
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: Modular.generateRoute,
       theme: ThemeData(
         primaryColor: Colors.red,

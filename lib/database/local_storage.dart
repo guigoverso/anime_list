@@ -1,5 +1,4 @@
 import 'package:anime_list/models/anime_model.dart';
-import 'package:anime_list/models/favorite_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -41,10 +40,5 @@ class LocalStorage {
     return _favorites.values.any((favorite) => favorite.id == anime.id);
   }
 
-  static void imprimir() {
-    print('Tamanho da caixa: ${_favorites.length}');
-    print(_favorites.values);
-  }
-
-  static int get qnt => _favorites.length;
+  static int get length => _favorites.length;
 }
