@@ -1,5 +1,6 @@
 import 'package:anime_list/models/anime_model.dart';
-import 'file:///C:/Users/guilh/Projects/Flutter/anime_list/lib/shared/card/anime_card.dart';
+import 'package:anime_list/shared/card/anime_card.dart';
+import 'package:anime_list/shared/card/anime_card_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,11 @@ class TopCard extends StatelessWidget {
         SizedBox(
           width: 10.0,
         ),
-        Expanded(child: AnimeCard(anime: anime))
+        Expanded(
+          child: AnimeCard(
+            store: AnimeCardStore(anime),
+          ),
+        )
       ]),
     );
   }

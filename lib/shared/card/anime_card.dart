@@ -1,18 +1,27 @@
+import 'package:anime_list/database/local_storage.dart';
 import 'package:anime_list/models/anime_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AnimeCard extends StatelessWidget {
-  final Anime anime;
+import 'anime_card_store.dart';
 
-  AnimeCard({Key key, this.anime}) : super(key: key);
+class AnimeCard extends StatelessWidget {
+  AnimeCardStore _store;
+
+  AnimeCard({Key key, @required store}) : super(key: key) {
+    this._store = store;
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Modular.to.pushNamed('/details', arguments: {'title': anime.title, 'id': anime.id},),
-      onDoubleTap: () => print('Tapa'),
+      onTap: () => Modular.to.pushNamed(
+        '/details',
+        arguments: {'title': _store.anime.title, 'id': _store.anime.id},
+      ).then((_) => _store.checkIfFavorite()),
+      onDoubleTap: _store.favoriteAction,
       child: Container(
         height: 120.0,
         child: Card(
@@ -28,7 +37,7 @@ class AnimeCard extends StatelessWidget {
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(10)),
                   child: Image.network(
-                    anime.imageUrl,
+                    _store.anime.imageUrl,
                     width: 100,
                     fit: BoxFit.cover,
                   )),
@@ -45,7 +54,7 @@ class AnimeCard extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Text(
-                        anime.title,
+                        _store.anime.title,
                         style: TextStyle(
                             fontSize: 18.0, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.fade,
@@ -62,11 +71,19 @@ class AnimeCard extends StatelessWidget {
                                 text: 'Nota: ',
                                 style: TextStyle(color: Colors.black)),
                             TextSpan(
-                                text: '${anime.score}',
+                                text: '${_store.anime.score}',
                                 style: TextStyle(color: Colors.red))
                           ])),
-                          Icon(Icons.favorite_border_outlined,
-                              size: 20, color: Colors.red),
+                          Observer(
+                            builder: (_) => IconButton(
+                              icon: Icon(
+                                _store.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                size: 20,
+                                color: Colors.red,
+                              ),
+                              onPressed: _store.favoriteAction,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -79,4 +96,6 @@ class AnimeCard extends StatelessWidget {
       ),
     );
   }
+
+  bool get isFavorite => _store.isFavorite;
 }

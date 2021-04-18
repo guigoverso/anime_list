@@ -18,12 +18,10 @@ abstract class _FavoritesStore with Store {
   }
 
   void addFavorite(Favorite newFavorite) {
-    LocalStorage.add(newFavorite);
     _fetchFavorites();
   }
 
   void removeFavorite(int id) {
-    LocalStorage.remove(id);
     _fetchFavorites();
   }
 

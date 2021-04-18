@@ -43,31 +43,20 @@ abstract class _DetailsStore with Store {
     dataStatus = Status.waiting;
     try {
       anime = await _service.fetchAnime(id);
-      isFavorite = anime.isFavorite;
+      checkIfFavorite();
       dataStatus = Status.success;
     } catch (e) {
       dataStatus = Status.error;
     }
   }
 
-  void favoriteAction() {
-    if(isFavorite) {
-      LocalStorage.remove(anime.id);
-      anime.isFavorite = false;
-      isFavorite = false;
-    } else {
-      LocalStorage.add(
-        Favorite(
-            id: anime.id,
-            imageUrl: anime.imageUrl,
-            title: anime.title,
-            synopsis: anime.synopsis,
-            score: anime.score,
-            episodes: anime.episodes
-        ),
-      );
-      anime.isFavorite = true;
-      isFavorite = true;
-    }
+  void favoriteAction() async {
+    await LocalStorage.favoriteAction(anime, isFavorite);
+    checkIfFavorite();
+  }
+
+  void checkIfFavorite() {
+    isFavorite = LocalStorage.isFavorite(anime);
+    anime.isFavorite = isFavorite;
   }
 }

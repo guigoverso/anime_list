@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'details_store.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatelessWidget{
   final _store = Modular.get<DetailsStore>();
 
   @override

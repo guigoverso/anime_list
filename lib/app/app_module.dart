@@ -4,7 +4,6 @@ import 'package:anime_list/screens/details/details_store.dart';
 import 'package:anime_list/screens/favorites/favorites_store.dart';
 import 'package:anime_list/screens/home/home_screen.dart';
 import 'package:anime_list/screens/home/home_store.dart';
-import 'package:anime_list/screens/top/top_screen.dart';
 import 'package:anime_list/screens/top/top_store.dart';
 import 'package:anime_list/screens/search/search_store.dart';
 import 'package:anime_list/services/anime_service.dart';

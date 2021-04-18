@@ -1,3 +1,4 @@
+import 'package:anime_list/models/anime_model.dart';
 import 'package:anime_list/models/favorite_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -13,7 +14,7 @@ class LocalStorage {
     final appDocumentDir =
         await path_provider.getApplicationDocumentsDirectory();
     Hive.init(appDocumentDir.path);
-    Hive.registerAdapter(FavoriteAdapter());
+    Hive.registerAdapter(AnimeAdapter());
     _favorites = await Hive.openBox('favorites');
   }
 
@@ -21,18 +22,23 @@ class LocalStorage {
     return _favorites.values.toList();
   }
 
-  static void add(Favorite newFavorite) {
-    _favorites.add(newFavorite);
+  static void clear() async {
+    await _favorites.clear();
   }
 
-  static void remove(int id) {
-    final removable =
-        _favorites.values.firstWhere((favorite) => favorite.id == id);
-    _favorites.delete(removable.key);
+  static Future<bool> favoriteAction(Anime anime, bool isFavorite) async {
+    if (isFavorite) {
+      final favorite = _favorites.values.firstWhere((favorite) => favorite.id == anime.id);
+      await _favorites.delete(favorite.key);
+      return false;
+    } else {
+      await _favorites.add(anime);
+      return true;
+    }
   }
 
-  static void clear() {
-    _favorites.clear();
+  static bool isFavorite(Anime anime) {
+    return _favorites.values.any((favorite) => favorite.id == anime.id);
   }
 
   static void imprimir() {
