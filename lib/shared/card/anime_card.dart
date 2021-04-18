@@ -53,31 +53,40 @@ class AnimeCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                          child: Text(
-                        _store.anime.title,
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.fade,
-                      )),
-                      SizedBox(
-                        height: 10.0,
+                        child: Text(
+                          _store.anime.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                                text: 'Nota: ',
-                                style: TextStyle(color: Colors.black)),
-                            TextSpan(
-                                text: '${_store.anime.score}',
-                                style: TextStyle(color: Colors.red))
-                          ])),
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: 'Nota: ',
+                                    style: TextStyle(color: Colors.black)),
+                                TextSpan(
+                                    text: '${_store.anime.score}',
+                                    style: TextStyle(color: Colors.red))
+                              ],
+                            ),
+                          ),
                           Observer(
                             builder: (_) => IconButton(
+                              constraints: BoxConstraints(maxHeight: 20),
+                              padding: EdgeInsets.all(0),
                               icon: Icon(
-                                _store.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                _store.isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border_outlined,
                                 size: 20,
                                 color: Colors.red,
                               ),

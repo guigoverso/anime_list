@@ -7,7 +7,7 @@ import '../details_store.dart';
 class SynopsisView extends StatelessWidget {
   final _store = Modular.get<DetailsStore>();
 
-  final String synopsis;
+  String synopsis;
   String firstHalf;
 
   SynopsisView({Key key, this.synopsis}) : super(key: key) {
@@ -52,6 +52,9 @@ class SynopsisView extends StatelessWidget {
   }
 
   void synopsisView() {
+    if(synopsis == null) {
+      synopsis = 'Synopsis unavailable';
+    }
     if (synopsis.length > 200) {
       firstHalf = '${synopsis.substring(0, 200)}...';
     } else {
