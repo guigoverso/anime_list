@@ -52,6 +52,10 @@ abstract class _DetailsStore with Store {
 
   void favoriteAction() {
     if(isFavorite) {
+      LocalStorage.remove(anime.id);
+      anime.isFavorite = false;
+      isFavorite = false;
+    } else {
       LocalStorage.add(
         Favorite(
             id: anime.id,
@@ -63,10 +67,7 @@ abstract class _DetailsStore with Store {
         ),
       );
       anime.isFavorite = true;
-    } else {
-      LocalStorage.remove(anime.id);
-      anime.isFavorite = false;
-      isFavorite = false;
+      isFavorite = true;
     }
   }
 }

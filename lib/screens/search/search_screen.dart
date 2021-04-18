@@ -1,5 +1,5 @@
 import 'package:anime_list/screens/top/widgets/top_card.dart';
-import 'package:anime_list/shared/card.dart';
+import 'file:///C:/Users/guilh/Projects/Flutter/anime_list/lib/shared/card/anime_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

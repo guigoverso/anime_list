@@ -27,8 +27,9 @@ class FavoritesScreen extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-              child: Text('Remover último anime'),
-              onPressed: () => _store.removeFavorite(LocalStorage.qnt - 1)),
+              child: Text('Limpar LocalStorage'),
+              onPressed: LocalStorage.clear,
+          ),
           ElevatedButton(
             child: Text('Imprimir no console'),
             onPressed: () => LocalStorage.imprimir(),

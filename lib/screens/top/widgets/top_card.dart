@@ -1,5 +1,5 @@
 import 'package:anime_list/models/anime_model.dart';
-import 'package:anime_list/shared/card.dart';
+import 'file:///C:/Users/guilh/Projects/Flutter/anime_list/lib/shared/card/anime_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
